@@ -33,6 +33,15 @@ if [ "$(sudo readlink "$current_fw_path")" = "$WORKING_FW" ]; then
     exit 0
 fi
 
+# Confirm with user before replacing firmware
+echo "About to replace firmware at $current_fw_path with $WORKING_FW"
+read -p "Do you want to proceed? (y/N): " confirm
+confirm=$(echo "$confirm" | tr '[:upper:]' '[:lower:]')
+if [ "$confirm" != "y" ] && [ "$confirm" != "yes" ]; then
+    echo "Operation cancelled by user"
+    exit 0
+fi
+
 # Backup current firmware and create symlink to working version
 echo "Switching to working firmware version..."
 sudo mv "$current_fw_path" "${current_fw_path}.bak"
