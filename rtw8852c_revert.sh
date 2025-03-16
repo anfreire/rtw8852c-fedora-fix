@@ -21,6 +21,8 @@ fi
 
 # Restore original firmware
 echo "Restoring original firmware..."
-sudo rm "$current_fw_path"                          # Remove symlink
-sudo mv "${current_fw_path}.bak" "$current_fw_path" # Restore backup
+sudo rm "${current_fw_path}"
+echo "Removed symlink ${current_fw_path}"
+sudo mv "${current_fw_path}.bak" "${current_fw_path}"
+echo "Restored original firmware from ${current_fw_path}.bak"
 echo "Done! Please reboot your system for changes to take effect."
